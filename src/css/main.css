@@ -1,0 +1,706 @@
+/*格式化样式*/
+html,
+body {
+  font-family: MicrosoftYaHei;
+  font-size: 13px;
+  background-color: #212f41;
+}
+
+body,
+div,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+th,
+td,
+button {
+  margin: 0;
+  padding: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+fieldset,
+img {
+  border: 0;
+}
+
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+strong,
+th,
+var {
+  font-style: normal;
+  font-weight: normal;
+}
+
+ol,
+ul,
+li {
+  list-style: none;
+}
+
+/* caption,th {text-align:left}  */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+q:before,
+q:after {
+  content: "";
+}
+
+abbr,
+acronym {
+  border: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* 页面真正的样式 */
+/* 页面最外面的容器 */
+.main-container {
+  background-color: #212f41;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* 页面的头部 */
+.header {
+  padding-left: 20px;
+  height: 50px;
+  background-color: #2c405a;
+  color: whitesmoke;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  font-weight: 900;
+  font-size: 16px;
+  border-bottom: #7070706c 1px solid;
+  box-sizing: border-box;
+}
+
+/* 页面的主体 */
+.body-container {
+  width: 100%;
+  /* background-color: aquamarine; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+  height: 900px;
+  margin-top: 20px;
+  padding: 0px 5px 0px 5px;
+}
+
+/* 左边的容器 */
+.left-container {
+  order: 1;
+  width: 15%;
+  /* background-color: coral; */
+  flex-grow: 1;
+  box-sizing: border-box;
+  padding: 5px;
+  padding-top: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.battery-temp-container {
+  width: 100%;
+  background-color: #26374c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  box-sizing: border-box;
+  margin-bottom: 12px;
+  border-radius: 5px;
+  border: #7070706c 1px solid;
+  overflow: hidden;
+  color: whitesmoke;
+}
+
+.litle-circle {
+  background-color: #26c1c9;
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+/*  */
+.battery-info-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  /* overflow: hidden; */
+}
+
+.battery-info-title {
+  height: 35px;
+  box-sizing: border-box;
+  border-bottom: #7070706c 1px solid;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  padding-left: 10px;
+  background-color: #2c405a;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.battery-info-details {
+  box-sizing: border-box;
+  padding: 20px 10px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.battery-info {
+  display: flex;
+  width: 95%;
+  flex-direction: row;
+  justify-content: space-between;
+  /* color: whitesmoke; */
+  box-sizing: border-box;
+  border-bottom: #7070706c 1px solid;
+  padding: 0px 5px 5px 5px;
+  margin-bottom: 20px;
+}
+
+/* 中间的容器 */
+.middle-container {
+  order: 2;
+  width: 50%;
+  /* background-color: cornflowerblue; */
+  flex-grow: 2;
+  box-sizing: border-box;
+  padding: 5px;
+  padding-top: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.navigator-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #26374c;
+  border-radius: 5px 5px 0px 0px;
+  border-top: #7070706c 1px solid;
+  border-right: #7070706c 1px solid;
+  box-sizing: border-box;
+  color: whitesmoke;
+  overflow: hidden;
+}
+
+.navigator {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-left: #7070706c 1px solid;
+  min-height: 35px;
+  box-sizing: border-box;
+  height: 100%;
+  font-weight: 900;
+  transition: 0.2s all ease-out;
+}
+
+.navigator:hover {
+  background-color: #2c405a;
+  border-bottom: #26c1c9 2px solid;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.comp-container {
+  width: 100%;
+  display: flex;
+  background-color: #2c405a;
+  border-radius: 0px 0px 5px 5px;
+  box-sizing: border-box;
+  border: #7070706c 1px solid;
+  flex-direction: column;
+  align-items: center;
+  min-height: 500px;
+  overflow: hidden;
+}
+
+/* 右边的容器 */
+.right-container {
+  order: 3;
+  width: 25%;
+  /* background-color: goldenrod; */
+  flex-grow: 1;
+
+  box-sizing: border-box;
+  padding: 5px;
+  padding-top: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.battery-demo-container {
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+}
+
+.select-battery {
+  width: 100%;
+  background-color: #26374c;
+  border: #7070706c 1px solid;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.batteris-title {
+  height: 35px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: center;
+  padding-left: 10px;
+  color: whitesmoke;
+  font-weight: 900;
+  border-bottom: #7070706c 1px solid;
+  background-color: #2c405a;
+}
+
+.batteries {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 15px 10px 15px 10px;
+}
+
+.battery-container {
+  width: 47%;
+  background-color: aquamarine;
+  margin-top: 10px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  background-color: #212f41;
+  border: #7070706c 1px solid;
+  overflow: hidden;
+}
+
+.battery-container:hover {
+  background-color: #2c405a;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.battery-title {
+  border-bottom: #7070706c 1px solid;
+  height: 20px;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: center;
+  color: whitesmoke;
+  font-size: 7px;
+  letter-spacing: 2px;
+  background-color: #2c405a;
+}
+
+.battery {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0px 20px 0px;
+}
+
+.battery img {
+  height: 110px;
+}
+
+.current-battery-container {
+  width: 100%;
+  background-color: #26374c;
+  box-sizing: border-box;
+  margin-top: 12px;
+  border-radius: 5px;
+  border: #7070706c 1px solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 30px;
+}
+
+.current-battery-title {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  height: 35px;
+  border-bottom: #7070706c 1px solid;
+  color: whitesmoke;
+  font-weight: 900;
+  box-sizing: border-box;
+  background-color: #2c405a;
+}
+
+.current-battery {
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 20px;
+  padding-bottom: -930px;
+}
+
+.litle-circle2 {
+  background-color: #26c1c9;
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.navigator-icon {
+  font-size: 15px;
+  margin-right: 10px;
+  color: #a8dfff;
+  font-weight: 500;
+}
+
+.head-enter,
+.head-leave-to {
+  opacity: 0;
+  transform: translateY(-100px);
+}
+
+.head-enter-active,
+.head-leave-active {
+  /* 过渡所有属性，过渡时间为0.5秒，过渡效果为擦除 */
+  transition: all 0.5s ease;
+}
+
+.comp-enter,
+.comp-leave-to {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.comp-enter-active,
+.comp-leave-active {
+  /* 过渡所有属性，过渡时间为0.5秒，过渡效果为擦除 */
+  transition: all 0.2s ease;
+}
+
+.selected-nav {
+  background-color: #2c405a;
+  border-bottom: #26c1c9 2px solid;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  color: #a8dfff;
+}
+
+.battery-select {
+  background-color: #2c405a;
+  transition: all 0.2 ease;
+}
+
+.battery img {
+  transition: all 0.1 ease;
+}
+
+/* 流程图容器样式 */
+.flow-sheet {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.flow-sheet-container {
+  margin: 30px 30px 40px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg-image {
+  background-image: url(../image/flowSheet.svg);
+  min-height: 500px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* 文件上传组件样式 */
+.upload {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 25px;
+}
+
+.upload-area {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.upload-icon {
+  color: #416087;
+  opacity: 0.5;
+  transition: all 0.2 ease;
+}
+
+.upload-icon:hover {
+  opacity: 1;
+  transition: all 0.2 ease;
+}
+
+.upload-tips {
+  color: rgba(255, 255, 255, 0.425);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 2px;
+}
+
+.upload-title {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.425);
+}
+
+.upload-selector {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  width: 80%;
+  align-items: center;
+}
+
+.upload-selector-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-selector-input {
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.upload-selector-button {
+  width: 120px;
+  background-color: #0093ee;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 33px;
+  color: white;
+  opacity: 0.5;
+  /* border-top: #7070706c 1px solid;
+    border-bottom: #7070706c 1px solid;
+    border-right: #7070706c 1px solid; */
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
+
+.upload-selector-button:hover {
+  opacity: 1;
+}
+
+.upload-bottom {
+  color: #ffffff65;
+  margin-top: 50px;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.button-clicked {
+  opacity: 0.5;
+}
+
+.upload-area:hover {
+  color: whitesmoke;
+}
+
+.analyse {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  margin-top: 10px;
+}
+
+.chart-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  margin-bottom: 30px;
+  padding: 0px, 10px, 0px, 10px;
+}
+
+.analyse-container {
+  position: relative;
+  width: 50%;
+}
+
+.forecast {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 30px;
+  margin-top: 10px;
+}
+
+.forecast-container {
+  position: relative;
+  width: 100%;
+}
+
+.line-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.battery-enter,
+.battery-leave-to {
+  opacity: 0;
+  transform: translateY(100px);
+}
+
+.battery-enter-active,
+.battery-leave-active {
+  /* 过渡所有属性，过渡时间为0.5秒，过渡效果为擦除 */
+  transition: all 0.5s ease;
+}
+
+/* loading动画样式 */
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  -webkit-transform: translate3d(0, -50px, 0);
+  -ms-transform: translate3d(0, -50px, 0);
+  transform: translate3d(0, -50px, 0);
+
+  -webkit-transition: -webkit-transform .5s ease-out;
+  -ms-transition: -webkit-transform .5s ease-out;
+  transition: transform .5s ease-out;
+}
+
+.pace.pace-active {
+  -webkit-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.pace .pace-progress {
+  display: block;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 10px;
+  background: #26c1c9;
+
+  pointer-events: none;
+}

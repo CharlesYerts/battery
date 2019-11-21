@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>智能电池管理平台</title>
+    <!-- 自定义样式文件 -->
+    <link rel="stylesheet" href="./src/css/main.css">
+    <!-- iconFont文件 -->
+    <link rel="stylesheet" href="./src/css/iconfont.css">
+    <!-- animation.css库的引入 -->
+    <link rel="stylesheet" href="./node_modules/animation.css/main.css">
+</head>
+
+<body>
+    <div id="app" :class="['main-container']">
+
+        <!-- 页面的头部 -->
+
+        <header :class="['header']">
+            <div>{{ pageTitle }}</div>
+        </header>
+
+
+
+        <!-- 页面的主体 -->
+        <main :class="['body-container']">
+
+
+            <!-- 左边容器 -->
+            <div :class="['left-container']">
+                <div :class="['battery-info-container']">
+                    <battery-info-comp :basic-info="batteryInfo.basicInfo"></battery-info-comp>
+                    <env-info-comp :env-info="batteryInfo.testingEnvironment"></env-info-comp>
+                    <fore-cast-info-comp :fore-cast-info="batteryInfo.forecastResult"></fore-cast-info-comp>
+                </div>
+            </div>
+
+
+
+            <!-- 中间容器 -->
+            <div :class="['middle-container']">
+                <div :class="['navigator-container']">
+                    <div :class="['navigator',componentId=='flowSheet'?'selected-nav':'']" @click="flowSheet">
+                        <div><i :class="['navigator-icon']" class="iconfont icon-liucheng_ "></i></div>
+                        <div>流程图</div>
+                    </div>
+                    <div :class="['navigator',componentId=='uploadFile'?'selected-nav':'']" @click="uploadFile">
+                        <div><i :class="['navigator-icon']" class="iconfont icon-wenjianshangchuan_zhengse"></i></div>
+                        <div>文件上传</div>
+                    </div>
+                    <div :class="['navigator',componentId=='dataAnalyse'?'selected-nav':'']" @click="dataAnalyse">
+                        <div><i :class="['navigator-icon']" class="iconfont icon-fenxi"></i></div>
+                        <div>数据分析</div>
+                    </div>
+                    <div :class="['navigator',componentId=='dataForecast'?'selected-nav':'']" @click="dataForecast">
+                        <div> <i :class="['navigator-icon']" class="iconfont icon-com-yuce"></i></div>
+                        <div>数据预测</div>
+                    </div>
+                </div>
+                <div :class="['comp-container']">
+                    <transition mode="out-in" appear name="comp">
+                        <component :is="componentId" :rul-rate="chartData.RULRate" :capacity="chartData.capacity"
+                            :consumption="chartData.consumption" :rul="chartData.RUL" :rx-Data="chartData.rxData"
+                            :pre-RUL="chartData.preRUL" :x-data="chartData.xData" :truesoc-data="chartData.trueSOCData"
+                            :presoc-data="chartData.preSOCData" :pre-data="chartData.preData"
+                            :true-data="chartData.trueData" @func="getDataFromUpdate" @locate="getLineIndex">
+                        </component>
+                    </transition>
+                </div>
+            </div>
+
+
+            <!-- 右边容器 -->
+            <div :class="['right-container']">
+                <div :class="['battery-demo-container']">
+                    <div :class="['select-battery']">
+                        <div :class="['batteris-title']">
+                            <div :class="['litle-circle']"></div>
+                            <div>电池组合</div>
+                        </div>
+                        <div :class="['batteries']">
+                            <div :class="['battery-container']" @click="single">
+                                <div :class="['battery-title']">
+                                    <div :class="['litle-circle2']"></div>
+                                    <div>单节电池</div>
+                                </div>
+                                <div :class="['battery',batteryId=='single'?'battery-select':'']">
+                                    <img :src="batteryId=='single'?batteryPic.single_light:batteryPic.single" alt="">
+                                </div>
+                            </div>
+                            <div :class="['battery-container']" @click="double_1">
+                                <div :class="['battery-title']">
+                                    <div :class="['litle-circle2']"></div>
+                                    <div>两节串联</div>
+                                </div>
+                                <div :class="['battery',batteryId=='double_1'?'battery-select':'']">
+                                    <img :src="batteryId=='double_1'?batteryPic.double_1_light:batteryPic.double_1"
+                                        alt="">
+                                </div>
+                            </div>
+                            <div :class="['battery-container']" @click="double_2">
+                                <div :class="['battery-title']">
+                                    <div :class="['litle-circle2']"></div>
+                                    <div>两节并联</div>
+                                </div>
+                                <div :class="['battery',batteryId=='double_2'?'battery-select':'']">
+
+                                    <img :src="batteryId=='double_2'?batteryPic.double_2_light:batteryPic.double_2"
+                                        alt="">
+                                </div>
+                            </div>
+                            <div :class="['battery-container']" @click="four">
+                                <div :class="['battery-title']">
+                                    <div :class="['litle-circle2']"></div>
+                                    <div>先串后并</div>
+                                </div>
+                                <div :class="['battery',batteryId=='four'?'battery-select':'']">
+                                    <img :src="batteryId=='four'?batteryPic.four_light:batteryPic.four" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 当前电池的内容 -->
+                    <transition name="battery" appear mode="out-in">
+                        <component :is="batteryId"></component>
+                    </transition>
+
+
+                </div>
+            </div>
+
+
+        </main>
+    </div>
+
+    <!-- 组件模板定义 -->
+    <!-- 电池信息模板 -->
+    <template id="batteryInfoTemp">
+        <div :class="['battery-temp-container']">
+            <div :class="['battery-info-title']">
+                <div :class="['litle-circle']"></div>
+                <div>基本信息</div>
+            </div>
+            <div :class="['battery-info-details']">
+                <div :class="['battery-info']">
+                    <div>名称</div>
+                    <div>{{basicInfo.name}}</div>
+                </div>
+                <div :class="['battery-info']">
+                    <div>型号</div>
+                    <div>{{basicInfo.model}}</div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- 环境信息模板 -->
+    <template id="envInfoTemp">
+        <div :class="['battery-temp-container']">
+            <div :class="['battery-info-title']">
+                <div :class="['litle-circle']"></div>
+                <div>测试环境</div>
+            </div>
+            <div :class="['battery-info-details']">
+                <div :class="['battery-info']">
+                    <div>温度</div>
+                    <div>{{envInfo.temperature}}</div>
+                </div>
+                <div :class="['battery-info']">
+                    <div>恒定电流</div>
+                    <div>{{(envInfo.constantCurrent)}}</div>
+                </div>
+                <div :class="['battery-info']">
+                    <div>电压</div>
+                    <div>{{envInfo.constantVoltage}}</div>
+                </div>
+                <div :class="['battery-info']">
+                    <div>累计容量</div>
+                    <div>{{envInfo.constantCapicty}}</div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- 预测结果模板 -->
+    <template id="foreCastInfoTemp">
+        <div :class="['battery-temp-container']">
+            <div :class="['battery-info-title']">
+                <div :class="['litle-circle']"></div>
+                <div>预测结果</div>
+            </div>
+            <div :class="['battery-info-details']">
+                <div :class="['battery-info']">
+                    <div>预测值</div>
+                    <div>{{foreCastInfo.predication}}</div>
+                </div>
+                <div :class="['battery-info']">
+                    <div>实际值</div>
+                    <div>{{foreCastInfo.true}}</div>
+                </div>
+                <div :class="['battery-info']">
+                    <div>偏差值</div>
+                    <div>{{foreCastInfo.error}}</div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+
+    <!-- 流程图模板 -->
+    <template id="flowSheetTemp">
+        <div :class="['flow-sheet']">
+            <div :class="['flow-sheet-container']">
+                <div :class="['svg-image']"></div>
+            </div>
+        </div>
+    </template>
+
+
+    <!-- 文件上传组件 -->
+    <template id="uploadFileTemp">
+        <div :class="['upload']">
+            <div style="cursor: pointer;" :class="['upload-area']" @click="$refs.fileInput.click()">
+                <div :class="['upload-icon']">
+                    <i style="font-size: 300px;" :class="['iconfont','icon-shangchuan']"></i>
+                </div>
+            </div>
+            <div :class="['upload-tips']">
+                <div>试试点击上方区域上传数据文件</div>
+            </div>
+            <div :class="['upload-title']">
+                <div>或者</div>
+                <input type="file" ref="fileInput" style="display: none;" @change="onFileSelected" />
+                <div style="margin: 0 7px 0 7px;">
+                    <a @click="$refs.fileInput.click()"
+                        style="text-decoration: none;color: #26C1C9;cursor: pointer;">从电脑选择文件</a>
+                </div>
+                <div>将要上传的文件</div>
+            </div>
+            <div :class="['upload-selector']">
+                <div :class="['upload-selector-container']">
+                    <div :class="['upload-selector-input']">
+                        <input style="width: 100%;height: 35px;border: none;border-radius: 5px 0 0 5px;outline: none;
+          padding-left:10px;font-size: 15px;background-color: #27384D;color: white;" type="text" name=""
+                            :value="selectedFile.name" id="" />
+                    </div>
+                    <div :class="['upload-selector-button',click==true?'button-clicked':'']" @click="onFileUpload">
+                        <div style="margin-right: 5px;">
+                            <i style="font-size: 15px;color: #A8DFFF;" :class="['iconfont', 'icon-tianjiawenjian']"></i>
+                        </div>
+                        <div>上传文件</div>
+                    </div>
+                </div>
+            </div>
+            <div :class="['upload-bottom']">
+                文件体积跟网络环境将会影响文件上传速率，请耐心等待....
+            </div>
+        </div>
+    </template>
+
+    <!-- 数据分析组件 -->
+    <template id="dataAnalyse">
+        <div class="analyse">
+            <div id=chartAnalyse class="chart-container">
+                <div>
+                    <div id="consume" class="analyse-container"></div>
+                </div>
+                <div>
+                    <div id="health" class="analyse-container"></div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- 数据预测组件 -->
+    <template id="dataForecast">
+        <div class="forecast">
+            <div id=chartForecast class="line-container">
+                <div>
+                    <div id="cycle" class="forecast-container"></div>
+                    <div id="rulChart" class="forecast-container"></div>
+                    <div id="socChart" class="forecast-container"></div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- 当前电池组件 -->
+    <template id="currentBatteryTemp">
+        <div :class="['current-battery-container']">
+            <div :class="['current-battery-title']">
+                <div :class="['litle-circle']"></div>
+                <div>当前电池概况</div>
+            </div>
+            <div :class="['current-battery']">
+                <!-- <img src="../image/battery2.gif" height="200px" alt=""> -->
+                <div id="currentBattery" ref="ani"></div>
+            </div>
+        </div>
+    </template>
+
+
+</body>
+
+<!-- Vue的库 -->
+<script src="./node_modules/vue/dist/vue.js"></script>
+<!-- loading动画库 -->
+<script src="./src/js/pace.min.js"></script>
+<!-- lottie动画 -->
+<script src="./node_modules/lottie-web/build/player/lottie.js"></script>
+<!-- js文件 -->
+<script src="./src/js/index.js"></script>
+<script type="text/javascript" src="./src/js/echarts.js"></script>
+
+
+</html>
