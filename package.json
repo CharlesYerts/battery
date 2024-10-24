@@ -11,6 +11,6 @@
   "dependencies": {
     "animation.css": "^0.1.0",
     "lottie-web": "^5.5.9",
-    "vue": "^2.6.10"
+    "vue": "^3.0.0"
   }
 }
